@@ -56,3 +56,10 @@ python3 build-muts.py > muts.csv
 sbatch esm-deletions.sh     # Needs GPU
 bash esm-missense.sh   # Fast enough without GPU
 ```
+
+# Plot results
+
+Plots generated with [`plot-variants.R`](plot-variants.R)
+
+![](esm-missense.png)
+![](esm-deletions.png)
