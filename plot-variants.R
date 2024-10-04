@@ -21,6 +21,7 @@ g.missense <- ggplot(veps[pos>1], aes(x=pos,y=1, fill=mean_esm)) + geom_tile() +
     scale_fill_gradientn(colors = c("#a020f0", "#a020f0", "#ffff00"))
 
 ggsave(g.missense, file='esm-missense.png', width=20, height=5, units='cm')
+ggsave(g.missense, file='esm-missense.pdf', width=20, height=5, units='cm')
 
 
 # Deletions
@@ -41,3 +42,4 @@ g.dels <- ggplot(dat[start>1], aes(x = start, y = end_value, fill = esm_score)) 
   labs(title='esm score for deletion mutants')
 
 ggsave(g.dels, file='esm-deletions.png', width=20, height=20, units='cm')
+ggsave(g.dels, file='esm-deletions.pdf', width=20, height=20, units='cm')
