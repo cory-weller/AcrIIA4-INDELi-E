@@ -1,11 +1,5 @@
-# AcrIIA4 mutant predictions
+# AcrIIA4 mutant predictions with ESM1b
 
-Prep peptide fasta
-```bash
-echo '>AcrIIa4' > AcrIIa4.fa
-echo 'MNINDLIREIKNKDYTVKLSGTDSNSITQLIIRVNNDGNEYVISESENES
-IVEKFISAFKNGWNQEYEDEEEFYNDMQTITLKSELN' >> AcrIIa4.fa
-```
 
 # Install requirements for variant prediction
 ```bash
@@ -22,8 +16,8 @@ python3 build-muts.py > muts.csv
 
 # Run the models
 ```bash
-sbatch esm-deletions.sh     # Needs GPU
-bash esm-missense.sh   # Fast enough without GPU
+bash esm-deletions.sh
+bash esm-missense.sh
 ```
 
 # Plot results
