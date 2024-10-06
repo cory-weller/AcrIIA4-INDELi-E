@@ -6,9 +6,7 @@ Specifically requires
 
 ```bash
 wget https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.4.0/ncbi-blast-2.4.0+-x64-linux.tar.gz
-
-gunzip ncbi-blast-2.4.0+-x64-linux.tar.gz
-
+tar -zxvf ncbi-blast-2.4.0+-x64-linux.tar.gz
 ```
 module load cd-hit
 module load blast
@@ -29,6 +27,7 @@ make install
 ## Download v4 `nr` database from NCBI
 
 ```bash
+# Retrieve v4 NR database
 mkdir db 
 cd db
 wget --recursive \
@@ -37,16 +36,21 @@ wget --recursive \
     --no-host-directories \
     --cut-dirs=6 https://ftp.ncbi.nlm.nih.gov/blast/db/v4/ \
     -A "nr_v4*"
+
+# Extract files one at a time; they share `nr.pal` and will collide if done simultaneously
+for file in *.tar.gz; do
+    tar -zxvf ${file}
+done
 ```
 
-## To edit any of the configuration
+## Edit PROVEAN configuration
 ```bash
 vi /data/${USER}/provean/bin/provean.sh
 ```
 
 `BLAST_DB` defined as the `nr` database downloaded with `wget` from NCBI
-`PSIBLAST` defined as the version within the extracted `ncbi-blast-2.4.0+`
-`BLASTDBCMD` defined as the version within the extracted `ncbi-blast-2.4.0+`
+`PSIBLAST` defined as the version within the extracted `ncbi-blast-2.4.0+` directory
+`BLASTDBCMD` defined as the version within the extracted `ncbi-blast-2.4.0+` directory
 `CD_HIT` defined as the version pre-included on Biowulf, `/usr/local/apps/cd-hit/cdhit-4.8.1/cd-hit`
 
 ## Build list of HGVS mutants
@@ -54,31 +58,11 @@ vi /data/${USER}/provean/bin/provean.sh
 [`make-hgvs-file.py`](make-hgvs-file.py) generates [`hgvs-muts.txt`](hgvs-muts.txt)
 
 
+## Run PROVEAN
+
 ```bash
-nohup bash /data/${USER}/provean/bin/provean.sh \
-    --query ../AcrIIa4.fa \
-    --variation hgvs_mutants.txt \
-    --save_supporting_set AcrIIa4.sss &
-```
-
-module load blast
-module load cd-hit
-
-nohup bash /data/${USER}/provean/bin/provean.sh \
-    --query AcrIIa4.fa \
-    --variation hgvs_mutants.txt \
-    --save_supporting_set AcrIIa4-vr.sss &
-
-
 bash /data/${USER}/provean/bin/provean.sh \
-    --query ../AcrIIa4.fa \
+    --query AcrIIa4.fa \
     --variation hgvs-muts.txt \
-    --supporting_set AcrIIa4-vr.sss > provean-out.txt
-
-wget https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.4.0/ncbi-blast-2.4.0+-x64-linux.tar.gz
-
-tar -zxvf ncbi-blast-2.4.0+-x64-linux.tar.gz
-
-
-
+    --save_supporting_set AcrIIa4.sss > provean-out.txt
 ```
