@@ -47,11 +47,12 @@ done
 ```bash
 vi /data/${USER}/provean/bin/provean.sh
 ```
-
-`BLAST_DB` defined as the `nr` database downloaded with `wget` from NCBI
-`PSIBLAST` defined as the version within the extracted `ncbi-blast-2.4.0+` directory
-`BLASTDBCMD` defined as the version within the extracted `ncbi-blast-2.4.0+` directory
-`CD_HIT` defined as the version pre-included on Biowulf, `/usr/local/apps/cd-hit/cdhit-4.8.1/cd-hit`
+| Variable | Defined as |
+| ---------|------------|
+| `BLAST_DB` | the `nr` database downloaded with `wget` from NCBI |
+| `PSIBLAST` | the version within the extracted `ncbi-blast-2.4.0+` directory |
+| `BLASTDBCMD` | the version within the extracted `ncbi-blast-2.4.0+` directory |
+| `CD_HIT` | the version pre-included on Biowulf, `/usr/local/apps/cd-hit/cdhit-4.8.1/cd-hit` |
 
 ## Build list of HGVS mutants
 
